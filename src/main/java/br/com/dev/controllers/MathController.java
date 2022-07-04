@@ -1,5 +1,6 @@
 package br.com.dev.controllers;
 
+import br.com.dev.exceptions.UnsuportedMathOperationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -10,7 +11,7 @@ public class MathController {
     @RequestMapping(value = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) throws Exception {
         if (!isNumeric(numberOne) || !isNumeric(numberTwo)){
-            throw new Exception();
+            throw new UnsuportedMathOperationException("Please set a numeric value");
         }
         Double sum = convertToDouble(numberOne) + convertToDouble(numberTwo);
         return sum;
